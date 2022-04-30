@@ -16,4 +16,9 @@ map <C-n> <Down>
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rust-lang/rust.vim'
 call plug#end()
+
+filetype plugin indent on
+
+let g:rustfmt_autosave = 1
