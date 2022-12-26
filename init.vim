@@ -14,11 +14,11 @@ map <C-b> <Left>
 map <C-f> <Right>
 map <C-p> <Up>
 map <C-n> <Down>
+map U <C-r>
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sophacles/vim-processing'
 call plug#end()
 
 filetype plugin indent on
-
-let g:rustfmt_autosave = 1
