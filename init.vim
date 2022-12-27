@@ -22,6 +22,4 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sophacles/vim-processing'
 call plug#end()
 
-filetype plugin indent on
-
 colorscheme rimirin
