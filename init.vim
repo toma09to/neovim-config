@@ -1,4 +1,5 @@
 set encoding=utf-8
+set mouse=
 set number
 set relativenumber
 set autoindent
@@ -22,3 +23,5 @@ Plug 'sophacles/vim-processing'
 call plug#end()
 
 filetype plugin indent on
+
+colorscheme rimirin
