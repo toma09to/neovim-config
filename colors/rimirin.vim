@@ -67,7 +67,7 @@ hi Substitute guifg=#ffffff guibg=#935c90 gui=NONE
 hi LineNr guifg=#f6bfd5 guibg=#5f58a0 gui=bold
 hi LineNrAbove guifg=#e6909b guibg=#101040
 hi LineNrBelow guifg=#e6909b guibg=#101040
-hi MatchParen guifg=#ffffff guibg=#f6bfd5
+hi MatchParen guifg=#935c90 guibg=#f6bfd5
 hi ModeMsg guifg=#e6909b
 hi MsgArea guifg=#f6bfd5 guibg=#080820
 hi MsgSeparator guifg=#e6909b
