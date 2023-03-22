@@ -23,9 +23,11 @@ call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sophacles/vim-processing'
 Plug 'lervag/vimtex'
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/ddx.vim'
 call plug#end()
 
 colorscheme rimirin
 
-let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
-let g:vimtex_view_general_options = '@line @pdf @tex'
+let g:vimtex_view_general_viewer = 'open'
+let g:vimtex_compiler_method = 'latexmk'
