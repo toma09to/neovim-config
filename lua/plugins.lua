@@ -19,9 +19,38 @@ if not ok then
 end
 
 packer.startup(function(use)
-    use('whthomason/packer.nvim')
+    use { 'whthomason/packer.nvim', opt = true }
+    use 'neovim/nvim-lspconfig'
+    use 'hrsh7th/nvim-cmp'
 
    if PACKER_BOOTSTRAP then
       require('packer').sync()
    end
 end)
+
+local lsp = require('lspconfig')
+lsp.rust_analyzer.setup({})
+lsp.pyright.setup({})
+
+local cmp = require('cmp')
+cmp.setup({
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'buffer' },
+        { name = 'path' },
+        { name = 'cmdline' },
+        { name = 'snippy' },
+    },
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-l>'] = cmp.mapping.complete(),
+    },
+})
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'path' },
+        { name = 'cmdline' },
+    },
+})
