@@ -72,8 +72,9 @@ hi ModeMsg guifg=#e6909b
 hi MsgArea guifg=#f6bfd5 guibg=#080820
 hi MsgSeparator guifg=#e6909b
 hi MoreMsg guifg=#e6909b
-hi NonText guifg=#181860
-hi Normal guifg=#ffffff guibg=#080820
+hi NonText guifg=#181860 guibg=NONE
+" hi Normal guifg=#ffffff guibg=#080820
+hi Normal guifg=#ffffff guibg=NONE
 hi Pmenu guifg=#ffffff guibg=#5f58a0
 hi PmenuSel guifg=#f6bfd5 guibg=#4d3648
 hi PmenuSbar guifg=#ffffff guibg=#101040
