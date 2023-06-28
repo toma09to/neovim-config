@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/toma09to/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/toma09to/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/toma09to/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/toma09to/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/toma09to/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/piuser10/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/piuser10/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/piuser10/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/piuser10/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/piuser10/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -76,18 +76,18 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["nvim-cmp"] = {
     loaded = true,
-    path = "/Users/toma09to/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    path = "/home/piuser10/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/Users/toma09to/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    path = "/home/piuser10/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["packer.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/Users/toma09to/.local/share/nvim/site/pack/packer/opt/packer.nvim",
+    path = "/home/piuser10/.local/share/nvim/site/pack/packer/opt/packer.nvim",
     url = "https://github.com/whthomason/packer.nvim"
   }
 }
