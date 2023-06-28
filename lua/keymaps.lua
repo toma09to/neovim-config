@@ -7,6 +7,7 @@ local keymaps = {
    {'n', '<C-k>', '<C-w>k', option},
    {'n', '<C-l>', '<C-w>l', option},
    {'n', '<Space>w', ':w<CR>', option},
+   {'i', 'jj', '<ESC>', option},
 }
 
 for _, v in ipairs(keymaps) do
