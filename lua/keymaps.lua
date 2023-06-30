@@ -7,6 +7,8 @@ local keymaps = {
    {'n', '<C-k>', '<C-w>k', option},
    {'n', '<C-l>', '<C-w>l', option},
    {'n', '<Space>w', ':w<CR>', option},
+   {'n', '<Space>y', 'gg"+yG', option},
+   {'n', '<Space>h', ':nohlsearch<CR>', option},
    {'i', 'jj', '<ESC>', option},
 }
 
