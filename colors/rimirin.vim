@@ -11,7 +11,7 @@ hi clear
 let g:colors_name = "Rimirin"
 
 " syntax
-hi Comment        guifg=#5f58a0
+hi Comment        guifg=#847a95
 hi Constant       guifg=#e6909b
 hi String         guifg=#e6909b
 hi Character      guifg=#e6909b
@@ -65,8 +65,10 @@ hi SignColumn guifg=#ffffff guibg=#4d3648
 hi IncSearch guifg=#ffffff guibg=#935c90 gui=NONE
 hi Substitute guifg=#ffffff guibg=#935c90 gui=NONE
 hi LineNr guifg=#f6bfd5 guibg=#5f58a0 gui=bold
-hi LineNrAbove guifg=#e6909b guibg=#101040
-hi LineNrBelow guifg=#e6909b guibg=#101040
+" hi LineNrAbove guifg=#e6909b guibg=#101040
+" hi LineNrBelow guifg=#e6909b guibg=#101040
+hi LineNrAbove guifg=#e6909b guibg=NONE
+hi LineNrBelow guifg=#e6909b guibg=NONE
 hi MatchParen guifg=#935c90 guibg=#f6bfd5
 hi ModeMsg guifg=#e6909b
 hi MsgArea guifg=#f6bfd5 guibg=#080820
@@ -96,3 +98,6 @@ hi Visual guibg=#4d3648
 hi VisualNOS guibg=#4d3648
 hi WarningMsg guifg=#ca3b64
 hi WildMenu guifg=#f8bfd5 guibg=#080820
+
+" indent-blankline.nvim
+hi IndentBlanklineIndent1 guifg=#5f58a0

@@ -1,73 +1,89 @@
--- Install packer automatically
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = vim.fn.system({
-        'git',
-        'clone',
-        '--depth',
-        '1',
-        'https://github.com/wbthomason/packer.nvim',
-        install_path,
+-- bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
     })
-    print('Installing packer...')
-    vim.cmd([[packadd packer.nvim]])
 end
+vim.opt.rtp:prepend(lazypath)
 
-local ok, packer = pcall(require, 'packer')
-if not ok then
-    return
-end
+-- lazy.nvim
+require("lazy").setup({
+    { "lukas-reineke/indent-blankline.nvim" },
+    { "windwp/nvim-autopairs", event = "InsertEnter" },
+    { "neovim/nvim-lspconfig" },
+    { "vim-airline/vim-airline" },
+    { "vim-airline/vim-airline-themes" },
+})
 
-packer.startup(function(use)
-    use { 'whthomason/packer.nvim', opt = true }
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/vim-vsnip'
+-- indent-blankline.nvim
+vim.opt.list = true
+vim.opt.listchars:append "eol:↵"
 
-   if PACKER_BOOTSTRAP then
-      require('packer').sync()
-   end
-end)
-
-require('mason').setup()
-require('mason-lspconfig').setup_handlers({ function(server)
-    local opt = {
-        capabilities = require('cmp_nvim_lsp').update_capabilities(
-            vim.lsp.protocol.make_client_capabilities()
-            )
-        }
-    require('lspconfig')[server].setup(opt)
-end })
-
-vim.cmd [[
-augroup lsp_document_highlight
-    autocmd!
-    autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
-augroup END
-]]
-
-local cmp = require('cmp')
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.fn['vsnip#anonymous'](args.body)
-        end,
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    char_highlight_list = {
+        "IndentBlanklineIndent1",
     },
-    sources = {
-        { name = 'nvim_lsp' },
-    },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-l>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm { select = true },
-    }),
-    experimental = {
-        ghost_text = true,
-    },
+}
+
+-- nvim-autopairs.nvim
+require("nvim-autopairs").setup({
+    enable_check_bracket_line = false
+})
+
+-- nvim-lspconfig
+-- Setup language servers.
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup {}
+lspconfig.tsserver.setup {}
+lspconfig.rust_analyzer.setup {
+  -- Server-specific settings. See `:help lspconfig-setup`
+  settings = {
+    ['rust-analyzer'] = {},
+  },
+}
+
+
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
 })
