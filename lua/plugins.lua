@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- lazy.nvim
 require("lazy").setup({
-    { "lukas-reineke/indent-blankline.nvim" },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     { "windwp/nvim-autopairs", event = "InsertEnter" },
     { "neovim/nvim-lspconfig" },
     { "vim-airline/vim-airline" },
@@ -25,12 +25,13 @@ require("lazy").setup({
 vim.opt.list = true
 vim.opt.listchars:append "eol:↵"
 
-require("indent_blankline").setup {
-    space_char_blankline = " ",
-    char_highlight_list = {
-        "IndentBlanklineIndent1",
-    },
-}
+local highlight = { "IndentBlankLine" }
+local hooks = require "ibl.hooks"
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "IndentBlankLine", { fg = "#5f58a0" })
+end)
+
+require("ibl").setup { indent = { highlight = highlight } }
 
 -- nvim-autopairs.nvim
 require("nvim-autopairs").setup({
@@ -42,6 +43,7 @@ require("nvim-autopairs").setup({
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}
+lspconfig.phpactor.setup {}
 lspconfig.rust_analyzer.setup {
   -- Server-specific settings. See `:help lspconfig-setup`
   settings = {

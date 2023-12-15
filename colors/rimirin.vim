@@ -98,6 +98,3 @@ hi Visual guibg=#4d3648
 hi VisualNOS guibg=#4d3648
 hi WarningMsg guifg=#ca3b64
 hi WildMenu guifg=#f8bfd5 guibg=#080820
-
-" indent-blankline.nvim
-hi IndentBlanklineIndent1 guifg=#5f58a0
