@@ -9,6 +9,7 @@ local keymaps = {
    {'n', '<Space>w', ':w<CR>', option},
    {'n', '<Space>y', 'gg"+yG', option},
    {'n', '<Space>h', ':nohlsearch<CR>', option},
+   {'n', '<Space>qf', ':q!<CR>', option},
    {'i', 'jj', '<ESC>', option},
 }
 
