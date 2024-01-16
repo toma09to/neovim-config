@@ -19,6 +19,7 @@ require("lazy").setup({
     { "neovim/nvim-lspconfig" },
     { "vim-airline/vim-airline" },
     { "vim-airline/vim-airline-themes" },
+    { "ray-x/lsp_signature.nvim", event = "VeryLazy", opts = {}, config = function(_, opts) require'lsp_signature'.setup(opts) end},
 })
 
 -- indent-blankline.nvim
@@ -41,6 +42,7 @@ require("nvim-autopairs").setup({
 -- nvim-lspconfig
 -- Setup language servers.
 local lspconfig = require('lspconfig')
+lspconfig.clangd.setup {}
 lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}
 lspconfig.phpactor.setup {}
@@ -74,7 +76,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<C-i>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
     vim.keymap.set('n', '<space>wl', function()
@@ -89,3 +91,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
+-- lsp_signature.nvim
+local signature_help = {
+    log_path = vim.fn.expand("$HOME") .. "/.tmp/sig.log",
+    bind = true,
+    debug = false,
+    hint_enable = false,
+    handler_opts = { border = "rounded" },
+    max_width = 80,
+}
+require("lsp_signature").setup(signature_help)
